@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>exPRSso - Input</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .nav-section {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem;
+            background-color: #ecf0f1;
+        }
+        
+        .nav-section a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .nav-section a:hover {
+            color: #3498db;
+        }	
+        
+        .back-button {
+            margin: 1rem;
+        }
+        
+        .back-button a {
+            color: #2c3e50;
+            text-decoration: none;
+        }
+        
+        .back-button a:hover {
+            text-decoration: underline;
+        }
+		
+		.content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+			justify-content: space-between;
+            align-items: center;
+			padding-left: 2rem;
+		}
+		
+		.logo {
+			width: 2000px;
+			height: 1000px;
+			margin-bottom: 1rem;
+		}
+		
+		.logo img {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+		}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>How to and example</h1>
+    </header>
+	
+    <nav class="nav-section">
+        <a href="exPRSsolandingpage.html">Home</a>
+		<a href="Input.html">How to and example</a>
+        <a href="APP_page.html">exPRSso</a>
+        <a href="Documentation.html">Documentation</a>
+    </nav>	
+    
+    <div class="back-button">
+        <a href="exPRSsolandingpage.html">← Back to the bar</a>
+    </div>
+    
+	<div class="content">
+		<h2><b>HOW TO AND EXAMPLE</b></h2>
+		<h3><b>Functionality</b></h3>
+		<p>There are few operations to be carried out before to reproduce a PRS in your cohort, specifically:
+		<ol>
+			<li><b>Get .ped and .map files</b></li>
+			<p>These file can be computed using PLINK, the free open-source whole genome association analysis toolset.</p>
+			<ul>
+				<li><b>v1.07 link</b>: <a href="https://zzz.bwh.harvard.edu/plink/index.shtml/">PLINK v1.07</a>
+				</li>
+				<li><b>v1.9/2.0 link</b>: <a href="https://www.cog-genomics.org/plink2/">PLINK v1.9/2.0 beta</a>
+				</li>				
+			</ul>
+			<p>Here's a brief description of the required structure for the .ped and .map files.</p>
+			<ul>
+				<li><b>Pedigree file</b>: a text file reporting pedigree information and genotype calls. A pedigree file is a white-space (space or tab) delimited file with extension .ped, has no header, each row represents a single individual, and is composed by these columns:
+				<ol>
+					<li><b>Family ID</b> (FID)</li>
+					<li><b>Individual ID</b> (IID)</li>
+					<li><b>Paternal ID</b> (PID)</li>
+					<li><b>Maternal ID</b> (MID)</li>
+					<li><b>Sex</b></li>
+					<li><b>Phenotype</b></li>
+					<li><b>Alleles</b> (variable number of columns)</li>
+				</ol>
+				</li>
+				<li><b>Map file</b>: is a text file that must contain 4 columns:
+				<ol>
+					<li><b>Chromosome</b>: a number from 1 to 22, X or Y</li>
+					<li><b>SNP reference sequence</b>: such as rsXXXXX</li>
+					<li><b>Genetic distance</b></li>
+					<li><b>BP position</b></li>
+				</ol>
+				</li>
+			</ul>			
+			<p>Before to upload .ped and .map files in exPRSso it is advisable to perform some quality controls (QCs) on your data. An example of data QCs is given <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7612115/">here.</a></p>
+			<p></p>
+			<li><b>Download the PRS summary</b></li>
+			<p>The PRS summary can be gathered by different sources, such as PGScatalog. This is an online repository where PRSs for a wide range of traits can be found. Additional information are reported <a href="https://www.pgscatalog.org/">on their page</a>.</p>
+			<p>It is important that the PRS summary is uploaded as a text file without a header and with these columns: SNP, A1 and OR. Always check your PRS summary before to upload them in exPRSso.</p>
+			<li><b>Upload your data</b></li>
+			<p>Once you have collected the three required files, you can upload them in exPRSso. To do that, just go to the "exPRSso" section at the top of this page. You will be redirected to the application page. Here, you will find three upload buttons, one for each file to be uploaded.</p>
+			<li><b>Compute the score</b></li>
+			<p>Click on the "Calculate PRS" button and wait for the results to be ready!</p>
+		</ol>	
+		<p></p>
+		<h3><b>Workflow</b></h3>
+		<img src="workflow_exPRSso.jpg" alt="workflow exPRSso" height="1000", width="2000">
+		</p>
+	</div>
+	
+</body>
+</html>

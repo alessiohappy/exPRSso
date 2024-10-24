@@ -20,7 +20,7 @@ exPRSso is a user-friendly web application built with R-Shiny that allows to rep
 
 ## Usage
 
-Visit the hosted version at: [[your-app-url]](https://alessiohappy.github.io/exPRSso/)
+Visit the hosted version at: [[exPRSso]](https://alessiohappy.github.io/exPRSso/)
 
 ## License
 

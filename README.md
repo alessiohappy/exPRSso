@@ -2,11 +2,11 @@
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
-A web application for assess the reproducibility of a Polygenic Risk Score (PRS).
+A web application to reproduce published Polygenic Risk Scores.
 
 ## Overview
 
-exPRSso is a web-based tool that allows researchers to reproduce a PRS starting from your genetic data and a published PRS summary. The application provides an intuitive interface for uploading genetic data files and visualizing PRS results.
+exPRSso is a web-based tool that allows researchers to reproduce a Polygenic Risk Score (PRS) starting from your genetic data and a published PRS summary. The application provides an intuitive interface for uploading genetic data files and visualizing PRS results.
 
 ## Features
 

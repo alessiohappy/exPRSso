@@ -40,4 +40,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
-[Alessio Felici/alessio.felici@phd.unipi.it] - For support or any questions on the use of the application.
+Alessio Felici (M.Sc.), [alessio.felici@phd.unipi.it] - For support or any questions on the use of the application.

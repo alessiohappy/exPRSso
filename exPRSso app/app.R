@@ -1,4 +1,10 @@
 # app.R
+# Copyright (c) 2024 Alessio Felici
+# Licensed under the MIT License - see LICENSE file for details
+# A web application to reproduce published Polygenic Risk Scores
+# Available at: https://alessiohappy.shinyapps.io/exPRSso/
+
+# app.R
 library(shiny)
 library(shinythemes)
 library(plotly)

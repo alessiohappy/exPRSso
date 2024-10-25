@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>exPRSso - APP_page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+		
+        .nav-section {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem;
+            background-color: #ecf0f1;
+        }
+        
+        .nav-section a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .nav-section a:hover {
+            color: #3498db;
+        }
+
+        .back-button {
+            margin: 1rem;
+        }
+        
+        .back-button a {
+            color: #2c3e50;
+            text-decoration: none;
+        }
+        
+        .back-button a:hover {
+            text-decoration: underline;
+        }		
+        
+        .content {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .app-container {
+            margin-top: 2rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .shiny-frame {
+            width: 100%;
+            height: 800px;
+            border: none;
+        }
+
+        .feature-description {
+            margin-bottom: 2rem;
+        }
+
+        .feature-list {
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>exPRSso</h1>
+    </header>
+	
+    <nav class="nav-section">
+        <a href="exPRSsolandingpage.html">Home</a>
+		<a href="Input.html">How to and example</a>
+        <a href="APP_page.html">exPRSso</a>
+        <a href="Documentation.html">Documentation</a>
+    </nav>		
+    
+    <div class="back-button">
+        <a href="exPRSsolandingpage.html"> ← Back to the bar</a>
+    </div>
+    
+    <div class="content">
+        <div class="feature-description">
+            <h2>Reproduce a PRS based on published data</h2>
+            <p>Make sure to have everything you need before to start. Hopefully, everything will work out fine.</p>
+			<p>Once you have uploaded the .ped, .map, and PRS summary files, you can calculate the score with the "Calculate PRS" button. Wait for the operation to be done, and then you can:</p>
+			<ul>
+				<li><b>Download the results</b>: this button will download a .csv file in which the weighted and unweighted scores are reported.</li>
+				<li><b>Visualize the results</b>: in the "Results" tab, the scors distribution will be displayed. In the plot, the score is reported on the X-axis, while the Y-axis reports the number of subjects.</li>
+				<li><b>Access the summary statistics</b>: in the "Data Summary" tab, you will find the basic summary statistics for the calculated scores, namely minimum, maximum, mean, median, and 1st and 3rd quintile.</li>
+			</ul>
+        </div>
+
+        <div class="app-container">
+            <!-- Sostituisci l'URL con quello della tua app pubblicata -->
+            <iframe 
+                class="shiny-frame"
+                src="https://alessiohappy.shinyapps.io/exPRSso/"
+                title="exPRSso">
+            </iframe>
+        </div>
+    </div>
+</body>
+</html>

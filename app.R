@@ -215,7 +215,7 @@ ui <- dashboardPage(
         )
       ),
       
-      # Tab dei Risultati
+      # Results tab
       tabItem(
         tabName = "results",
         fluidRow(
@@ -246,7 +246,7 @@ ui <- dashboardPage(
         )
       ),
       
-      # Tab di Download
+      # Download tab
       tabItem(
         tabName = "download",
         fluidRow(
@@ -262,25 +262,25 @@ ui <- dashboardPage(
   )
 )
 
-# Server dell'app Shiny
+# SERVER
 server <- function(input, output, session) {
-  # Reactive values per memorizzare i risultati
+  # Reactive values 
   rv <- reactiveValues(
     calculator = NULL,
     calculation_done = FALSE
   )
   
-  # Gestione del calcolo PRS
+  # PRS computation manager
   observeEvent(input$calculate, {
     req(input$map_file, input$ped_file, input$risk_file)
     
     withProgress(message = 'Calculating PRS...', value = 0, {
-      # Salva i file caricati temporaneamente
+      # Temporarly save the uploaded files
       map_path <- input$map_file$datapath
       ped_path <- input$ped_file$datapath
       risk_path <- input$risk_file$datapath
       
-      # Crea una nuova istanza del calculator
+      # New calculator instance
       rv$calculator <- exPRSso$new(map_path, ped_path, risk_path)
       
       incProgress(0.25, detail = "Reading data...")
@@ -297,7 +297,7 @@ server <- function(input, output, session) {
     })
   })
   
-  # Rendering dei plot
+  # Plots
   output$boxplot <- renderPlot({
     req(rv$calculation_done)
     boxplot_data <- tidyr::pivot_longer(
@@ -326,7 +326,7 @@ server <- function(input, output, session) {
       labs(x = "Weighted score", y = "Density")
   })
   
-  # Rendering della tabella dei risultati
+  # Results table
   output$scores_table <- renderDT({
     req(rv$calculation_done)
     datatable(rv$calculator$prs_scores,
@@ -348,19 +348,19 @@ server <- function(input, output, session) {
       paste("prs_plots_", Sys.Date(), ".zip", sep = "")
     },
     content = function(file) {
-      # Crea una directory temporanea per i plot
+      # Temporary directory for the plots
       temp_dir <- tempdir()
       plots_dir <- file.path(temp_dir, "plots")
       dir.create(plots_dir)
       
-      # Salva i plot
+      # Plots: save
       rv$calculator$plot_distributions(plots_dir)
       
-      # Crea il file ZIP
+      # zip if you want
       zip(file, files = list.files(plots_dir, full.names = TRUE))
     }
   )
 }
 
-# Avvio dell'app Shiny
+# Start shinyapp
 shinyApp(ui = ui, server = server)

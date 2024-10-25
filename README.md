@@ -1,6 +1,6 @@
-# exPRSso
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+# exPRSso
 exPRSso is an easy-to-use web application to replicate an already existing, published Polygenic Risk Scores (PRS) in your genetic data. Users are provided with a friendly interface for processing their genetic data files (.ped and .map) and generating both weighted and unweighted PRS calculations. The application leverages on published PRS summaries, reported as text file and containing these basic information: SNP (variant identifier), A1 (effect allele), and OR (effect size).
 
 ## Features

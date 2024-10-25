@@ -35,6 +35,8 @@ After (a time consuming) translation, the application is totally R-based and fun
    - Examine the distribution plots
    - Browse the detailed scores table
    - Download results in CSV format (and zipped plots)
+   - 
+![exPRSso workflow](docs/workflow_exPRSso.jpg)
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

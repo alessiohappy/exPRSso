@@ -267,39 +267,79 @@ server <- function(input, output, session) {
   # Reactive values 
   rv <- reactiveValues(
     calculator = NULL,
-    calculation_done = FALSE
+    calculation_done = FALSE,
+    error_message = NULL
   )
   
   # PRS computation manager
   observeEvent(input$calculate, {
     req(input$map_file, input$ped_file, input$risk_file)
+
+    # reset error message
+    rv$error_message <- NULL
     
     withProgress(message = 'Calculating PRS...', value = 0, {
+      tryCatch({
       # Temporarly save the uploaded files
       map_path <- input$map_file$datapath
       ped_path <- input$ped_file$datapath
       risk_path <- input$risk_file$datapath
-      
+
+      # get file dimensions
+      map_size <- file.size(map_path) / (1024^2)  # in MB
+      ped_size <- file.size(ped_path) / (1024^2)  # in MB
+      risk_size <- file.size(risk_path) / (1024^2) # in MB
+
+      # Log: dimensions
+      message(sprintf("File sizes - MAP: %.2f MB, PED: %.2f MB, Risk: %.2f MB",
+                     map_size, ped_size, risk_size))
+        
       # New calculator instance
+      incProgress(0.1, detail = "Initializing calculator...")
       rv$calculator <- exPRSso$new(map_path, ped_path, risk_path)
       
-      incProgress(0.25, detail = "Reading data...")
+      incProgress(0.3, detail = "Reading data...")
       rv$calculator$read_data()
       
-      incProgress(0.25, detail = "Calculating allelic dosage...")
+      incProgress(0.5, detail = "Calculating allelic dosage...")
       rv$calculator$calculate_allelic_dosage()
       
-      incProgress(0.25, detail = "Calculating PRS...")
+      incProgress(0.7, detail = "Calculating PRS...")
       rv$calculator$calculate_prs()
       
-      incProgress(0.25, detail = "Done!")
+      incProgress(1.0, detail = "Done ;)")
       rv$calculation_done <- TRUE
+
+      }, error = function(e) {
+        rv$error_message <- paste("Error during calculation:", e$message)
+        showNotification(
+          rv$error_message,
+          type = "error",
+          duration = NULL
+        )
+      }, warning = function(w) {
+        showNotification(
+          paste("Warning:", w$message),
+          type = "warning"
+        )
+      }, finally = {gc()})
     })
   })
   
-  # Plots
+  # Rise errors (if any)
+  output$error_message <- renderText({
+    rv$error_message
+  })
+        
+    })
+  })
+  
+# Aggiungi controlli di esistenza dei dati per ogni output
   output$boxplot <- renderPlot({
-    req(rv$calculation_done)
+    req(rv$calculation_done, !is.null(rv$calculator$prs_scores))
+    validate(need(try(nrow(rv$calculator$prs_scores) > 0), 
+                 "No data available for plotting"))
+    
     boxplot_data <- tidyr::pivot_longer(
       rv$calculator$prs_scores,
       cols = c("unweighted", "weighted")
@@ -311,7 +351,10 @@ server <- function(input, output, session) {
   })
   
   output$unweighted_dist <- renderPlot({
-    req(rv$calculation_done)
+    req(rv$calculation_done, !is.null(rv$calculator$prs_scores))
+    validate(need(try(nrow(rv$calculator$prs_scores) > 0), 
+                 "No data available for plotting"))
+    
     ggplot(rv$calculator$prs_scores, aes(x = unweighted)) +
       geom_density(fill = "grey80") +
       theme_minimal() +
@@ -319,18 +362,28 @@ server <- function(input, output, session) {
   })
   
   output$weighted_dist <- renderPlot({
-    req(rv$calculation_done)
+    req(rv$calculation_done, !is.null(rv$calculator$prs_scores))
+    validate(need(try(nrow(rv$calculator$prs_scores) > 0), 
+                 "No data available for plotting"))
+    
     ggplot(rv$calculator$prs_scores, aes(x = weighted)) +
       geom_density(fill = "grey80") +
       theme_minimal() +
       labs(x = "Weighted score", y = "Density")
   })
   
-  # Results table
+  # Rendering della tabella dei risultati con controlli
   output$scores_table <- renderDT({
-    req(rv$calculation_done)
+    req(rv$calculation_done, !is.null(rv$calculator$prs_scores))
+    validate(need(try(nrow(rv$calculator$prs_scores) > 0), 
+                 "No data available"))
+    
     datatable(rv$calculator$prs_scores,
-              options = list(pageLength = 10))
+              options = list(pageLength = 10,
+                           processing = TRUE,
+                           scrollX = TRUE,
+                           scrollY = "300px",
+                           scroller = TRUE))
   })
   
   # Download handlers
